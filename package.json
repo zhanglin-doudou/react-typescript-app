@@ -6,6 +6,7 @@
     "prepare": "husky install",
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "local-test": "react-scripts test",
     "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
     "format-all": "./node_modules/.bin/prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css,scss,md}'"

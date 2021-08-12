@@ -20,9 +20,13 @@ yarn
 ```bash
 yarn start # start project
 
-yarn test  # run test cases
+yarn test  # run test cases without watch
+
+yarn local-test # run test cases with watch
 
 yarn build # build project with production
+
+yarn format-all # format all files
 ```
 
 ## Development
