@@ -2,45 +2,108 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## How to start
 
-In the project directory, you can run:
+### Install VSCode plugins
 
-### `yarn start`
+- [ESlint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+- [Prettier extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Install packages
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```bash
+yarn
+```
 
-### `yarn test`
+### Scripts
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+yarn start # start project
 
-### `yarn build`
+yarn test  # run test cases
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+yarn build # build project with production
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Development
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Rules
 
-### `yarn eject`
+- Always use **interface** for **public API’s definition** when authoring a library or 3rd-party ambient type definitions.
+- Always use **type** for your React Component **Props and State**, because it is more constrained.
+- Always add descriptive comments to your props using the TSDoc notation /\*_ comment _/.
+- When props are optional, use **default values**.
+- If add third parties must be with **@types** packages which is the TypeScript type definitions.
+- Always commit by **Git commands**, as this tirggers husky hooks.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### For Example
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Function
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```ts
+import React from 'react';
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+// Written as a function declaration
+function Heading(): React.ReactElement {
+  return <h1>My Website Heading</h1>;
+}
+
+// Written as a function expression. React.FC is discouraged.
+const OtherHeading = (props: Props) => <h1>My Website Heading</h1>;
+```
+
+- useState
+
+```ts
+type User = {
+  email: string;
+  id: string;
+};
+
+// together generic and union, TypeScript knows, "Ah, user can be User or null".
+const [user, setUser] = useState<User | null>(null);
+```
+
+- onchange
+
+```ts
+import React from 'react';
+
+const MyInput = () => {
+  const [value, setValue] = React.useState('');
+
+  // The event type is a "ChangeEvent"
+  // We pass in "HTMLInputElement" to the input
+  function onChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setValue(e.target.value);
+  }
+
+  return <input value={value} onChange={onChange} id="input-example" />;
+};
+```
+
+- type extends by &
+
+```ts
+type ButtonProps = {
+  /** the background color of the button */
+  color: string;
+  /** the text to show inside the button */
+  text: string;
+};
+
+type ContainerProps = ButtonProps & {
+  /** the height of the container (value used with 'px') */
+  height: number;
+};
+```
 
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+[React with Typescript best practices](https://www.sitepoint.com/react-with-typescript-best-practices/)
+
+[React Typescript cheatsheets](https://github.com/typescript-cheatsheets/react)
